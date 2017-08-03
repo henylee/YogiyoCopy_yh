@@ -30,7 +30,6 @@ public class MainActivity extends TabActivity {
         spec1.setContent(R.id.tab1);
         myTabHost.addTab(spec1);
 
-
         TabHost.TabSpec spec2 = myTabHost.newTabSpec("tab2").setIndicator("주문내역");
         spec2.setContent(R.id.tab2);
         myTabHost.addTab(spec2);
