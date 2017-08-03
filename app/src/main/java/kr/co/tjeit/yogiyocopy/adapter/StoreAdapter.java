@@ -100,7 +100,6 @@ public class StoreAdapter extends ArrayAdapter<StoreData> {
         openAndCloseTimeTxt.setText(openCloseStr);
 
 
-
         String minDeliveryCostStr = String.format("%,d원 이상 배달 가능", data.getMinCost());
         minDeliveryCostTxt.setText(minDeliveryCostStr);
 

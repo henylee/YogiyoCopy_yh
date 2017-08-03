@@ -7,9 +7,12 @@ import android.widget.ListView;
 import android.widget.TabHost;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import kr.co.tjeit.yogiyocopy.adapter.OrderAdapter;
 import kr.co.tjeit.yogiyocopy.adapter.StoreAdapter;
+import kr.co.tjeit.yogiyocopy.data.OrderData;
 import kr.co.tjeit.yogiyocopy.data.StoreData;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,6 +23,10 @@ public class MainActivity extends AppCompatActivity {
     List<StoreData> storeDataList = new ArrayList<>();
     StoreAdapter storeAdapter;
 
+    private ListView orderListView;
+    List<OrderData> orderDataList = new ArrayList<>();
+    OrderAdapter myOrderAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         myTabHost = (TabHost) findViewById(R.id.myTabHost);
         storeListView = (ListView) findViewById(R.id.storeListView);
         myTabHost.setup();
+        orderListView = (ListView) findViewById(R.id.orderListView);
 
         TabHost.TabSpec spec1 = myTabHost.newTabSpec("tab1").setIndicator("가게목록");
         spec1.setContent(R.id.tab1);
@@ -40,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
         spec3.setContent(R.id.tab3);
         myTabHost.addTab(spec3);
 
+        TabHost.TabSpec spec4 = myTabHost.newTabSpec("tab4").setIndicator("내정보");
+        spec4.setContent(R.id.tab4);
+        myTabHost.addTab(spec4);
+
         storeDataList.add(new StoreData("https://s3.ap-northeast-2.amazonaws.com/slws3/imgs/tje_practice/kyochon_logo.jpg", "교촌치킨-대학로점", 4.2f, 1200, 2330, 15000, true));
         storeDataList.add(new StoreData("https://s3.ap-northeast-2.amazonaws.com/slws3/imgs/tje_practice/one_logo.jpg", "원할머니보쌈-종로5가점", 3.8f, 1100, 300, 25000, false));
         storeDataList.add(new StoreData("https://www.yogiyo.co.kr/media/restaurant_logos/%EB%96%A1%EB%B3%B6%EC%9D%B4%EC%88%9C%EB%8C%80%EC%84%B8%ED%8A%B801_20131128_FoodAD_crop_200x200_yjnTv3z.jpg", "스쿨스토어-종로점", 3.8f, 1100, 300, 25000, false));
@@ -47,8 +59,20 @@ public class MainActivity extends AppCompatActivity {
         storeDataList.add(new StoreData("https://www.yogiyo.co.kr/media/restaurant_logos/%EC%89%AC%EB%A6%BC%ED%94%84_%ED%94%BC%EC%9E%9001_20131128_FoodAD_crop_200x200.jpg", "훼미리피자", 3.8f, 1100, 300, 25000, false));
         storeDataList.add(new StoreData("https://www.yogiyo.co.kr/media/restaurant_logos/%ED%83%95%EC%88%98%EC%9C%A103_20131128_FoodAD_crop_200x200_Rn9zt25.jpg", "남경-남대문시장점", 3.8f, 1100, 300, 25000, false));
 
+        orderDataList.add(new OrderData(storeDataList.get(0), Calendar.getInstance(), "종로3가점", 15000));
+        orderDataList.add(new OrderData(storeDataList.get(0), Calendar.getInstance(), "종로1가점", 10000));
+        orderDataList.add(new OrderData(storeDataList.get(0), Calendar.getInstance(), "을지로3가점", 30000));
+        orderDataList.add(new OrderData(storeDataList.get(1), Calendar.getInstance(), "종로5가점", 25000));
+        orderDataList.add(new OrderData(storeDataList.get(1), Calendar.getInstance(), "종로점", 35000));
+        orderDataList.add(new OrderData(storeDataList.get(4), Calendar.getInstance(), "종로3가점", 30000));
+        orderDataList.add(new OrderData(storeDataList.get(2), Calendar.getInstance(), "종로3가점", 20000));
+        orderDataList.add(new OrderData(storeDataList.get(2), Calendar.getInstance(), "종로점", 28000));
+
         storeAdapter = new StoreAdapter(MainActivity.this, storeDataList);
         storeListView.setAdapter(storeAdapter);
+
+        myOrderAdapter = new OrderAdapter(MainActivity.this, orderDataList);
+        orderListView.setAdapter(myOrderAdapter);
 
     }
 }
